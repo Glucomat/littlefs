@@ -1,0 +1,25 @@
+{
+  "name": "LittleFS_STM32BlackPill",
+  "description": "LittleFS for STM32 BlackPill",
+  "keywords": "littlefs",
+  "authors": {
+    "name": "roggenbrot42",
+    "email": "nic@sft.lol",
+    "maintainer": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Glucomat/littlefs"
+  },
+  "frameworks": "arduino",
+  "platforms": "STM32F411CE",
+  "build": {
+    "srcFilter": [
+      "-<*>",
+      "+<lfs.c>",
+      "+<lfs_util.c>"
+    ]
+  },
+  "headers" : ["lfs.h" , "lfs_util.h"]
+  
+}
