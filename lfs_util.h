@@ -48,7 +48,7 @@ extern "C"
 // Macros, may be replaced by system specific wrappers. Arguments to these
 // macros must not have side-effects as the macros can be removed for a smaller
 // code footprint
-
+extern void printerr(const char *buffer);
 // Logging functions
 #ifndef LFS_TRACE
 #ifdef LFS_YES_TRACE
@@ -62,18 +62,26 @@ extern "C"
 
 #ifndef LFS_DEBUG
 #ifndef LFS_NO_DEBUG
-#define LFS_DEBUG_(fmt, ...) \
-    printf("%s:%d:debug: " fmt "%s\n", __FILE__, __LINE__, __VA_ARGS__)
+#define LFS_DEBUG_(format, ...)         \
+  {                                     \
+    char buff[64];                     \
+    sprintf(buff, format, __VA_ARGS__); \
+    printerr(buff);                     \
+  }
 #define LFS_DEBUG(...) LFS_DEBUG_(__VA_ARGS__, "")
 #else
-#define LFS_DEBUG(...)
+#define LFS_DEBUG(...) 
 #endif
 #endif
 
 #ifndef LFS_WARN
 #ifndef LFS_NO_WARN
-#define LFS_WARN_(fmt, ...) \
-    printf("%s:%d:warn: " fmt "%s\n", __FILE__, __LINE__, __VA_ARGS__)
+#define LFS_WARN_(fmt, ...)             \
+  {                                     \
+    char buff[64];                      \
+    sprintf(buff, fmt, __VA_ARGS__); \
+    printerr(buff);                     \
+  }
 #define LFS_WARN(...) LFS_WARN_(__VA_ARGS__, "")
 #else
 #define LFS_WARN(...)
@@ -82,8 +90,12 @@ extern "C"
 
 #ifndef LFS_ERROR
 #ifndef LFS_NO_ERROR
-#define LFS_ERROR_(fmt, ...) \
-    printf("%s:%d:error: " fmt "%s\n", __FILE__, __LINE__, __VA_ARGS__)
+#define LFS_ERROR_(fmt, ...)            \
+  {                                     \
+    char buff[64];                      \
+    sprintf(buff, fmt, __VA_ARGS__); \
+    printerr(buff);                     \
+  }
 #define LFS_ERROR(...) LFS_ERROR_(__VA_ARGS__, "")
 #else
 #define LFS_ERROR(...)
